@@ -1,0 +1,49 @@
+FROM ubuntu:22.04
+
+RUN set -eux; \
+        apt-get update \
+        && apt-get install -y --no-install-recommends \
+        curl \
+        wget \
+        nano \
+        gpg \
+        gnupg \
+        ca-certificates
+
+# https://docs.newrelic.com/docs/infrastructure/install-infrastructure-agent/linux-installation/tarball-manual-install-infrastructure-agent-linux/
+# We need to manual install because default packages use SYSTEMD
+# which is not available in linux containers
+
+RUN V=1.52.3 ARCH=amd64 \
+    && url="https://download.newrelic.com/infrastructure_agent/binaries/linux/${ARCH}/newrelic-infra_linux_${V}_${ARCH}.tar.gz" \
+    && echo url \
+    && wget "${url}" \
+    && tar -xzf "newrelic-infra_linux_${V}_${ARCH}.tar.gz" -C /var/tmp \
+    && cp /var/tmp/newrelic-infra/etc / --recursive\
+    && cp /var/tmp/newrelic-infra/var/log /var --recursive\
+    && cp /var/tmp/newrelic-infra/var/db /var --recursive\
+    && cp /var/tmp/newrelic-infra/usr / --recursive\
+    && rm /usr/bin/newrelic-infra-ctl\
+    && rm /usr/bin/newrelic-infra-service\
+    && rm "newrelic-infra_linux_${V}_${ARCH}.tar.gz"
+    # && rm -r /var/tmp/newrelic-infra
+
+RUN V=2.12.5 ARCH=amd64 \
+    && url="https://download.newrelic.com/infrastructure_agent/binaries/linux/${ARCH}/nri-mssql_linux_${V}_${ARCH}.tar.gz" \
+    && echo url \
+    && wget "${url}" \
+    && tar -xzf "nri-mssql_linux_${V}_${ARCH}.tar.gz" -C / \
+    && rm "nri-mssql_linux_${V}_${ARCH}.tar.gz"
+    
+# Not needed, nri will be executed as a foreground process
+# RUN mkdir -p /etc/init.d/system/newrelic-infra
+# RUN cp /etc/newrelic-infra/init_scripts/sysv/newrelic-infra /etc/init.d/newrelic-infra
+# RUN update-rc.d newrelic-infra defaults
+# RUN update-rc.d newrelic-infra enable
+
+COPY newrelic-infra.yml /etc/newrelic-infra.yml
+COPY mssql-config.yml /etc/newrelic-infra/integrations.d/mssql-config.yml
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]

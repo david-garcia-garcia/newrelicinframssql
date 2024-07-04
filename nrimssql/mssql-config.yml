@@ -1,0 +1,18 @@
+# What you want to do is replace this with a config-map in K8S
+# https://docs.newrelic.com/docs/infrastructure/host-integrations/host-integrations-list/microsoft-sql/microsoft-sql-server-config/
+integrations:
+# Integración de solo inventario, no requiere mucha frecuencia...
+- name: nri-mssql
+  env:
+    HOSTNAME: ${HOSTNAME}
+    USERNAME: ${USERNAME}
+    PASSWORD: ${PASSWORD}
+    ENABLE_SSL: true
+    TRUST_SERVER_CERTIFICATE: true
+    TIMEOUT: 8
+    INVENTORY: true
+  interval: 20s
+  labels:
+    environment:
+    role: mssql
+  inventory_source: config/mssql

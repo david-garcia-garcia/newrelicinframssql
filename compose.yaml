@@ -1,0 +1,22 @@
+services:
+  nri:
+    image: nri
+    build:
+      context: ./nrimssql
+      dockerfile: dockerfile
+    environment:
+      - MSSQL_HOSTNAME=database
+      - MSSQL_USERNAME=sa
+      - MSSQL_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PORT=1433
+      - NRI_LOGLEVEL=info
+      - NRI_LICENSE_KEY=xx
+    depends_on:
+      - database
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Passw0rd
+    ports:
+      - "1466:1433"
