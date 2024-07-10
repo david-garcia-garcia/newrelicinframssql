@@ -9,7 +9,7 @@ services:
       - MSSQL_USERNAME=sa
       - MSSQL_PASSWORD=YourStrong@Passw0rd
       - MSSQL_PORT=1433
-      - NRI_LOGLEVEL=debug
+      - NRI_LOGLEVEL=info
       - NRI_LICENSE_KEY=xx
     depends_on:
       - database
