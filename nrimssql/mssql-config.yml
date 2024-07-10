@@ -10,9 +10,5 @@ integrations:
     ENABLE_SSL: true
     TRUST_SERVER_CERTIFICATE: true
     TIMEOUT: 8
-    INVENTORY: true
   interval: 20s
-  labels:
-    environment:
-    role: mssql
   inventory_source: config/mssql

@@ -1,6 +1,6 @@
 services:
   nri:
-    image: nri
+    image: davidbcn86/nri-mssql:1.0
     build:
       context: ./nrimssql
       dockerfile: dockerfile
@@ -9,7 +9,7 @@ services:
       - MSSQL_USERNAME=sa
       - MSSQL_PASSWORD=YourStrong@Passw0rd
       - MSSQL_PORT=1433
-      - NRI_LOGLEVEL=info
+      - NRI_LOGLEVEL=debug
       - NRI_LICENSE_KEY=xx
     depends_on:
       - database

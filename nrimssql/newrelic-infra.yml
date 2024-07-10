@@ -192,7 +192,7 @@ log:
 # Value    : To disable all the inventory, set to true.
 # Default  : false
 #
-disable_all_plugins: false
+disable_all_plugins: true
 #
 
 #
@@ -849,7 +849,7 @@ strip_command_line: true
 #            some alarms to trigger, since the previous host would appear
 #            disconnected.
 #
-#dns_hostname_resolution: true
+dns_hostname_resolution: false
 #
 
 #

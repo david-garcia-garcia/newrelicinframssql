@@ -14,7 +14,7 @@ RUN set -eux; \
 # We need to manual install because default packages use SYSTEMD
 # which is not available in linux containers
 
-RUN V=1.52.3 ARCH=amd64 \
+RUN V=1.53.0 ARCH=amd64 \
     && url="https://download.newrelic.com/infrastructure_agent/binaries/linux/${ARCH}/newrelic-infra_linux_${V}_${ARCH}.tar.gz" \
     && echo url \
     && wget "${url}" \
@@ -44,6 +44,10 @@ RUN V=2.12.5 ARCH=amd64 \
 COPY newrelic-infra.yml /etc/newrelic-infra.yml
 COPY mssql-config.yml /etc/newrelic-infra/integrations.d/mssql-config.yml
 COPY entrypoint.sh /usr/bin/entrypoint.sh
+
+ENV NRIA_IS_INTEGRATIONS_ONLY=true
+ENV NRIA_PROCESS_CONTAINER_DECORATION=false
+ENV NRIA_DISABLE_CLOUD_METADATA=true
 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]

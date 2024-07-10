@@ -15,6 +15,14 @@ sed -i "s/\${USERNAME}/$USERNAME/" /etc/newrelic-infra/integrations.d/mssql-conf
 sed -i "s/\${PASSWORD}/$PASSWORD/" /etc/newrelic-infra/integrations.d/mssql-config.yml
 sed -i "s/\${PORT}/$PORT/" /etc/newrelic-infra/integrations.d/mssql-config.yml
 
+: "${NRI_LABEL_ENVIRONMENT:=info}"
+: "${NRI_LABEL_ROLE:=info}"
+: "${NRI_LABEL_SERVER:=info}"
+
+sed -i "s/\${NRI_LABEL_ENVIRONMENT}/$NRI_LABEL_ENVIRONMENT/" /etc/newrelic-infra/integrations.d/mssql-config.yml
+sed -i "s/\${NRI_LABEL_ROLE}/$NRI_LABEL_ROLE/" /etc/newrelic-infra/integrations.d/mssql-config.yml
+sed -i "s/\${NRI_LABEL_SERVER}/$NRI_LABEL_SERVER/" /etc/newrelic-infra/integrations.d/mssql-config.yml
+
 echo "Configuring /etc/newrelic-infra.yml from environment"
 
 : "${NRI_LOGLEVEL:=info}"
