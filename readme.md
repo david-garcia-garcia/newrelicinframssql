@@ -6,6 +6,10 @@ A stand-alone, **non-intrusive** newrelic infrastructure container with MSSQL in
 
 [Microsoft SQL Server monitoring integration | New Relic Documentation](https://docs.newrelic.com/es/docs/infrastructure/host-integrations/host-integrations-list/microsoft-sql/microsoft-sql-server-integration/)
 
+Already built images can be found here:
+
+[davidbcn86/nri-mssql general | Docker Hub](https://hub.docker.com/repository/docker/davidbcn86/nri-mssql/general)
+
 ## **Environment variables**
 
 | Name            | Description                         | Default Value |
