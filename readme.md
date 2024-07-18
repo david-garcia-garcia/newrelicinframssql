@@ -2,7 +2,7 @@
 
 # Docker image with the MSSQL integration for New Relic
 
-A stand-alone, **non-intrusive** newrelic infrastructure container with MSSQL integration.
+A stand-alone newrelic infrastructure container with MSSQL integration.
 
 [Microsoft SQL Server monitoring integration | New Relic Documentation](https://docs.newrelic.com/es/docs/infrastructure/host-integrations/host-integrations-list/microsoft-sql/microsoft-sql-server-integration/)
 
@@ -21,7 +21,9 @@ Already built images can be found here:
 | NRI_LOGLEVEL    | Log level for the NRI agent         | info          |
 | NRI_LICENSE_KEY | License key for the NRI integration | Empty         |
 
-Currently the inventory metrics are correctly sent to NR, but the name of the server and instance are completely missleading because it's automatically using the dynamic hostname and instance name asigned to the pods or in MSSQL during the install process. See https://github.com/newrelic/nri-mssql/issues/166
+To make sure that the inventory and metrics make any sense in NewRelic you need to change the **servername**. You can customize the SERVERNAME using the MSSQL_SERVERNAME env setting in the Windows MSSQL images:
+
+[windowscontainers/sqlserver2022base at master · david-garcia-garcia/windowscontainers (github.com)](https://github.com/david-garcia-garcia/windowscontainers/tree/master/sqlserver2022base)
 
 ## Integration configuration and custom queries
 
